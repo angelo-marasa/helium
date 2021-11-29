@@ -22,3 +22,5 @@ Route::get('/add-hotspot', [HotspotsController::class, 'newHotspotForm']);
 Route::post('/add-hotspot', [HotspotsController::class, 'addNewHotspot']);
 
 Route::get('/activity', [HotspotsController::class, 'getLastActivity']);
+Route::get('/test', [HotspotsController::class, 'testSms']);
+
