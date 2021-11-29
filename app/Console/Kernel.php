@@ -15,7 +15,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('hotspots:update')->everyMinute()->between('6:00', '00:00');
+        $schedule->command('hotspots:update')->everyMinute();
     }
 
     /**
