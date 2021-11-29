@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('meta')
-<meta http-equiv="refresh" content="300">
+<meta http-equiv="refresh" content="15">
 @endsection
             
 @section('content')
