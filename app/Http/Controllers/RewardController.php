@@ -25,6 +25,8 @@ class RewardController extends Controller
         $your_earnings = .041;
 
         $earnings = $price * $your_earnings;
-        dd('Currently valued at $' . round($earnings, 2));
+        echo 'Currently valued at $' . round($earnings, 2) . '<br/>';
+        echo 'Your Earnings $' . $your_earnings. '<br/>';
+        echo 'Current Price $' . $price . '<br/>';
     }
 }

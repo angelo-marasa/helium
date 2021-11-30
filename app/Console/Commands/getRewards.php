@@ -113,7 +113,8 @@ class getRewards extends Command
                                     $message = $client->message()->send([
                                         'to' => '1'.$hotspot['phone'],
                                         'from' => ENV('NEXMO_FROM'),
-                                        'text' => $hotspot['hotspot_name'] . ' has earned a reward of ' . $total_earnings . ' HNT. Currently valued at $' . round($earnings, 2)
+                                       // 'text' => $hotspot['hotspot_name'] . ' has earned a reward of ' . $total_earnings . ' HNT. Currently valued at $' . round($earnings, 2)
+                                        'text' => $hotspot['hotspot_name'] . ' has earned a reward of ' . $total_earnings . ' HNT. Currently valued at $' . round($earnings, 2) . ' HNT Price is ' . $price
                                     ]);
                                 }
                             }
