@@ -72,42 +72,42 @@ class UpdateHotspotData extends Command
     
                 $hotspot->day_earnings = round($hotspot_earnings['data'][0]['total'], 2);
 
-                    if ($last_active <= 2) {
-                        Log::info('Active 2 blocks or less ago.');
-                        if ($hotspot->new_activity_notification == 0) {
-                            $hotspot->new_activity_notification = 1;
-                            $hotspot->long_sleep_notification = 0;
+                    // if ($last_active <= 2) {
+                    //     Log::info('Active 2 blocks or less ago.');
+                    //     if ($hotspot->new_activity_notification == 0) {
+                    //         $hotspot->new_activity_notification = 1;
+                    //         $hotspot->long_sleep_notification = 0;
 
 
-                            $basic  = new \Nexmo\Client\Credentials\Basic(ENV('NEXMO_KEY'), ENV('NEXMO_SECRET'));
-                            $client = new \Nexmo\Client($basic);
+                    //         $basic  = new \Nexmo\Client\Credentials\Basic(ENV('NEXMO_KEY'), ENV('NEXMO_SECRET'));
+                    //         $client = new \Nexmo\Client($basic);
 
-                            $message = $client->message()->send([
-                            'to' => '1'.$hotspot->phone,
-                            'from' => ENV('NEXMO_FROM'),
-                            'text' => $name . ' has been active within the last 5 blocks.'
-                        ]);
-                        } else {
-                            $hotspot->new_activity_notification = 0;
-                        }
-                    } elseif ($last_active > 300 && $last_active < 302) {
-                        if ($hotspot->long_sleep_notification == 0) {
-                            Log::info('Active between 300 and 302 blocks and has not been notified.');
-                            $hotspot->long_sleep_notification = 1;
+                    //         $message = $client->message()->send([
+                    //         'to' => '1'.$hotspot->phone,
+                    //         'from' => ENV('NEXMO_FROM'),
+                    //         'text' => $name . ' has been active within the last 5 blocks.'
+                    //     ]);
+                    //     } else {
+                    //         $hotspot->new_activity_notification = 0;
+                    //     }
+                    // } elseif ($last_active > 300 && $last_active < 302) {
+                    //     if ($hotspot->long_sleep_notification == 0) {
+                    //         Log::info('Active between 300 and 302 blocks and has not been notified.');
+                    //         $hotspot->long_sleep_notification = 1;
 
-                            $basic  = new \Nexmo\Client\Credentials\Basic(ENV('NEXMO_KEY'), ENV('NEXMO_SECRET'));
-                            $client = new \Nexmo\Client($basic);
+                    //         $basic  = new \Nexmo\Client\Credentials\Basic(ENV('NEXMO_KEY'), ENV('NEXMO_SECRET'));
+                    //         $client = new \Nexmo\Client($basic);
 
-                            $message = $client->message()->send([
-                                'to' => '1'.$hotspot->phone,
-                                'from' => ENV('NEXMO_FROM'),
-                                'text' => $name . ' has been asleep for 300 blocks. You\'ll be notified again as soon as it\'s active.'
-                            ]);
-                        }
-                    } else {
-                        $hotspot->new_activity_notification = 0;
-                        $hotspot->long_sleep_notification = 0;
-                    }
+                    //         $message = $client->message()->send([
+                    //             'to' => '1'.$hotspot->phone,
+                    //             'from' => ENV('NEXMO_FROM'),
+                    //             'text' => $name . ' has been asleep for 300 blocks. You\'ll be notified again as soon as it\'s active.'
+                    //         ]);
+                    //     }
+                    // } else {
+                    //     $hotspot->new_activity_notification = 0;
+                    //     $hotspot->long_sleep_notification = 0;
+                    // }
                 $hotspot->save();
 
             }

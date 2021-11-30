@@ -34,12 +34,12 @@ class HotspotsController extends Controller
 
     public function testSms() {
         $basic  = new \Nexmo\Client\Credentials\Basic(ENV('NEXMO_KEY'), ENV('NEXMO_SECRET'));
-            $client = new \Nexmo\Client($basic);
-    
-            $message = $client->message()->send([
-                'to' => '17347702351',
-                'from' => ENV('NEXMO_FROM'),
-                'text' => 'This is a test'
-            ]);
+        $client = new \Nexmo\Client($basic);
+
+        $message = $client->message()->send([
+            'to' => '17347702351',
+            'from' => ENV('NEXMO_FROM'),
+            'text' => 'This is a test'
+        ]);
     }
 }

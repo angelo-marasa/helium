@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HotspotsController;
+use App\Http\Controllers\RewardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,4 +24,5 @@ Route::post('/add-hotspot', [HotspotsController::class, 'addNewHotspot']);
 
 Route::get('/activity', [HotspotsController::class, 'getLastActivity']);
 Route::get('/test', [HotspotsController::class, 'testSms']);
+Route::get('/rewards', [RewardController::class, 'getRewards']);
 
