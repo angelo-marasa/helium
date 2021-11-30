@@ -45,6 +45,19 @@ class getRewards extends Command
                 //-- Initiate a new hotspot instance
                 $hotspots = Hotspots::all();
         
+
+                $getPricing = Http::withHeaders([
+                    'user-agent' => 'Helium Script'
+                ])->get('https://api.helium.io/v1/oracle/prices/current');
+                $price_data = $getPricing->json();
+        
+                $current_price = $price_data['data']['price'];
+                
+                $whole_num = substr($current_price, 0, 2);
+                $decimal = round((substr($current_price, 2, 3) * .001), 2);
+                $price = $whole_num + $decimal;
+
+
                 //-- Loop through hotspots
                 foreach ($hotspots as $hotspot) {
                         $rewards = Http::withHeaders([
@@ -83,6 +96,10 @@ class getRewards extends Command
                                     $rw->amount = $total_earnings;
                         
                                     $rw->save();
+
+                                    
+                                    $earnings = $price * $total_earnings;
+
                                     Log::info('----------------------------------------------------');
                                     Log::info($hotspot['hotspot_address']);
                                     Log::info($hotspot['phone']);
@@ -96,7 +113,7 @@ class getRewards extends Command
                                     $message = $client->message()->send([
                                         'to' => '1'.$hotspot['phone'],
                                         'from' => ENV('NEXMO_FROM'),
-                                        'text' => $hotspot['hotspot_name'] . ' has earned a reward of ' . $total_earnings . ' HNT'
+                                        'text' => $hotspot['hotspot_name'] . ' has earned a reward of ' . $total_earnings . ' HNT. Currently valued at $' . round($earnings, 2)
                                     ]);
                                 }
                             }
