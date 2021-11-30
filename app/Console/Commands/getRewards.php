@@ -81,7 +81,7 @@ class getRewards extends Command
                                 $total_earnings = 0;
                     
                                 foreach ($earnings['rewards'] as $r) {
-                                    $total_earnings += round((substr($r['amount'], 0, 3) * .001), 2);
+                                    $total_earnings += round((substr($r['amount'], 0, 3) * .0001), 3);
                                 }
                             
                                 //-- Check the database and see if a record exists
@@ -113,8 +113,7 @@ class getRewards extends Command
                                     $message = $client->message()->send([
                                         'to' => '1'.$hotspot['phone'],
                                         'from' => ENV('NEXMO_FROM'),
-                                       // 'text' => $hotspot['hotspot_name'] . ' has earned a reward of ' . $total_earnings . ' HNT. Currently valued at $' . round($earnings, 2)
-                                        'text' => $hotspot['hotspot_name'] . ' has earned a reward of ' . $total_earnings . ' HNT. Currently valued at $' . round($earnings, 2) . ' HNT Price is ' . $price
+                                        'text' => $hotspot['hotspot_name'] . ' has earned a reward of ' . $total_earnings . ' HNT. Currently valued at $' . round($earnings, 2)
                                     ]);
                                 }
                             }
