@@ -47,7 +47,7 @@ class getRewards extends Command
 
                 $getPricing = Http::withHeaders([
                     'user-agent' => 'Helium Script'
-                ])->get('https://api.helium.io/v1/oracle/prices/current');
+                ])->get(ENV('HELIUM_API_ENDPOINT').'/oracle/prices/current');
                 $price_data = $getPricing->json();
         
                 $current_price = $price_data['data']['price'];
@@ -61,14 +61,14 @@ class getRewards extends Command
                 foreach ($hotspots as $hotspot) {
                         $rewards = Http::withHeaders([
                         'user-agent' => 'Helium Script'
-                    ])->get('https://api.helium.io/v1/hotspots/'.$hotspot['hotspot_address'].'/activity', [
+                    ])->get(ENV('HELIUM_API_ENDPOINT').'/hotspots/'.$hotspot['hotspot_address'].'/activity', [
                         'limit' => '5',
                     ]);
                         $hotspot_earnings = $rewards->json();
         
                         $rewards = Http::withHeaders([
                         'user-agent' => 'Helium Script'
-                    ])->get('https://api.helium.io/v1/hotspots/'.$hotspot['hotspot_address'].'/activity', [
+                    ])->get(ENV('HELIUM_API_ENDPOINT').'/v1/hotspots/'.$hotspot['hotspot_address'].'/activity', [
                         'limit' => '5',
                         'cursor' => $hotspot_earnings['cursor']
                     ]);
@@ -99,12 +99,12 @@ class getRewards extends Command
                                     
                                     $earnings = $price * $total_earnings;
 
-                                    Log::info('----------------------------------------------------');
-                                    Log::info($hotspot['hotspot_address']);
-                                    Log::info($hotspot['phone']);
-                                    Log::info($reward_id);
-                                    Log::info($total_earnings);
-                                    Log::info('----------------------------------------------------');
+                                    // Log::info('----------------------------------------------------');
+                                    // Log::info($hotspot['hotspot_address']);
+                                    // Log::info($hotspot['phone']);
+                                    // Log::info($reward_id);
+                                    // Log::info($total_earnings);
+                                    // Log::info('----------------------------------------------------');
         
                                     $basic  = new \Nexmo\Client\Credentials\Basic(ENV('NEXMO_KEY'), ENV('NEXMO_SECRET'));
                                     $client = new \Nexmo\Client($basic);

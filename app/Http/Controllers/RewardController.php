@@ -13,7 +13,7 @@ class RewardController extends Controller
     public function getRewards() {
         $response = Http::withHeaders([
             'user-agent' => 'Helium Script'
-        ])->get('https://api.helium.io/v1/oracle/prices/current');
+        ])->get(ENV('HELIUM_API_ENDPOINT').'/oracle/prices/current');
         $price_data = $response->json();
 
         $current_price = $price_data['data']['price'];
